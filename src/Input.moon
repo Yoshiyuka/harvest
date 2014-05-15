@@ -14,4 +14,5 @@ class Input
     inputKeypressed: (key) =>
         if type(@action[key]) == "function" then @action[key]()
 
+    inputUpdate: (dt) =>
 

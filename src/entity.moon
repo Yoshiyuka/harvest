@@ -6,7 +6,8 @@ class Entity
     @instances = 0
     new: =>
         @pos = {}
-        @pos.x, @pos.y = 0
+        @pos.x = 0
+        @pos.y = 0
 
         @@instances += 1
         @id = @@instances

@@ -21,13 +21,15 @@ love.load = () ->
     player = Player!
 
 love.update = (dt) ->
-    --map\update(dt)
+    map\update(dt)
+    player\update(dt)
 
 love.draw = () ->
-    --map\setDrawRange(0, 0, windowWidth, windowHeight)
-    --map\draw()
+    map\setDrawRange(0, 0, windowWidth, windowHeight)
+    map\draw()
     
     --unless collision_tileset == nil
+    player\draw!
 
 love.keyreleased = (key) ->
     if(key == "right") or (key == "left")
