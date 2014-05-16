@@ -1,11 +1,15 @@
 sti = require "sti"
 require "anal"
+require "World"
 require "player"
 
 export map
 export collision_layer, collision_tileset
 export windowWidth, windowHeight
 export player
+export ball
+export world
+
 love.load = () ->
     windowWidth = love.graphics.getWidth!
     windowHeight = love.graphics.getHeight!
@@ -15,14 +19,19 @@ love.load = () ->
 
     map = sti.new("maps/test")
 
-    collision_layer = map.layers["Collision"]
-    collision_tileset = value for key, value in pairs map.tilesets when value.name == "collision"
+    --collision_layer = map.layers["Collision"]
+    --collision_tileset = value for key, value in pairs map.tilesets when value.name == "collision"
 
-    player = Player!
+    world = World!
+
+    player = Player(world\getPhysics!)
+    
 
 love.update = (dt) ->
     map\update(dt)
     player\update(dt)
+
+    world\update(dt)
 
 love.draw = () ->
     map\setDrawRange(0, 0, windowWidth, windowHeight)

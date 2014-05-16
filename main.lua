@@ -1,5 +1,6 @@
 local sti = require("sti")
 require("anal")
+require("World")
 require("player")
 love.load = function()
   windowWidth = love.graphics.getWidth()
@@ -7,16 +8,19 @@ love.load = function()
   love.graphics.setBackgroundColor(128, 128, 128)
   love.graphics.setBlendMode("alpha")
   map = sti.new("maps/test")
-  collision_layer = map.layers["Collision"]
-  for key, value in pairs(map.tilesets) do
-    if value.name == "collision" then
-      collision_tileset = value
-    end
-  end
-  player = Player()
+  world = World()
+  player = Player(world:getPhysics())
 end
-love.update = function(dt) end
-love.draw = function() end
+love.update = function(dt)
+  map:update(dt)
+  player:update(dt)
+  return world:update(dt)
+end
+love.draw = function()
+  map:setDrawRange(0, 0, windowWidth, windowHeight)
+  map:draw()
+  return player:draw()
+end
 love.keyreleased = function(key)
   if (key == "right") or (key == "left") then
     return true

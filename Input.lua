@@ -8,7 +8,8 @@ do
       if type(self.action[key]) == "function" then
         return self.action[key]()
       end
-    end
+    end,
+    inputUpdate = function(self, dt) end
   }
   _base_0.__index = _base_0
   local _class_0 = setmetatable({

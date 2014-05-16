@@ -2,13 +2,15 @@ require "moon.all"
 require "entity"
 require "Input"
 require "anal"
+require "PhysicsRectangle"
 
 export Player
 
 class Player extends Entity
-    new: =>
-        print "player has entered the scene"
+    new: (world) =>
+        super!
         mixin self, Input
+        mixin self, PhysicsRectangle, world, @pos.x, @pos.y, 32, 32
 
         @\bind("left", @\moveLeft)
         @\bind("right", @\moveRight)
@@ -17,18 +19,22 @@ class Player extends Entity
 
         @sprite = love.graphics.newImage("assets/ninja.png")
         @anim = newAnimation(@sprite, 32, 32, 0.05, 0)
-        super!
 
     moveLeft: =>
-        @pos.x -= 1
+        @pos.x -= 32
+        @physicsBody\move(-32, 0)
     moveRight: =>
-        @pos.x += 1
+        @pos.x += 32
+        @physicsBody\move(32, 0)
     moveUp: =>
-        @pos.y -= 1
+        @pos.y -= 32
+        @physicsBody\move(0, -32)
     moveDown: =>
-        @pos.y += 1
+        @pos.y += 32
+        @physicsBody\move(0, 32)
 
     update: (dt) =>
         @anim\update(dt)
     draw: =>
-        @anim\draw(@pos.x * 32, @pos.y * 32)
+        @anim\draw(@pos.x, @pos.y)
+        @physicsRectangleDraw!
