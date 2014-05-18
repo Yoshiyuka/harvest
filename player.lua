@@ -6,7 +6,8 @@ require("PhysicsRectangle")
 do
   local _parent_0 = Entity
   local _base_0 = {
-    moveLeft = function(self)
+    moveTowards = function(self, ...)
+      print(unpack(...))
       self.pos.x = self.pos.x - 32
       return self.physicsBody:move(-32, 0)
     end,
@@ -39,11 +40,11 @@ do
       mixin(self, PhysicsRectangle, world, self.pos.x, self.pos.y, 32, 32)
       self:bind("left", (function()
         local _base_1 = self
-        local _fn_0 = _base_1.moveLeft
+        local _fn_0 = _base_1.moveTowards
         return function(...)
           return _fn_0(_base_1, ...)
         end
-      end)())
+      end)(), "left", -32)
       self:bind("right", (function()
         local _base_1 = self
         local _fn_0 = _base_1.moveRight

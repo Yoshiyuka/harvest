@@ -1,12 +1,32 @@
 require("moon.all")
 do
   local _base_0 = {
-    bind = function(self, key, callback)
-      self.action[key] = callback
+    bind = function(self, key, callback, ...)
+      self.action[key] = {
+        callback,
+        {
+          ...
+        }
+      }
     end,
     inputKeypressed = function(self, key)
-      if type(self.action[key]) == "function" then
-        return self.action[key]()
+      local func
+      local args
+      local _list_0 = self.action[key]
+      for _index_0 = 1, #_list_0 do
+        local tuple = _list_0[_index_0]
+        if type(tuple) == "function" then
+          func = tuple
+        else
+          args = tuple
+        end
+      end
+      if type(func) == "function" then
+        if args == nil then
+          return func()
+        else
+          return func(args)
+        end
       end
     end,
     inputUpdate = function(self, dt) end

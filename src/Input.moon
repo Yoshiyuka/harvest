@@ -8,11 +8,23 @@ class Input
         @action["left"] = () => print("left")
         @action["right"] = () => print("right")
 
-    bind: (key, callback) =>
-        @action[key] = callback
+    bind: (key, callback, ...) =>
+        @action[key] = {callback, {...}}
 
     inputKeypressed: (key) =>
-        if type(@action[key]) == "function" then @action[key]()
+        local func
+        local args
+        for tuple in *@action[key]
+            if type(tuple) == "function"
+                func = tuple
+            else
+                args = tuple
+
+        if type(func) == "function"
+            if args == nil then
+                func()
+             else
+                func(args)
 
     inputUpdate: (dt) =>
 

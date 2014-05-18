@@ -12,7 +12,7 @@ class Player extends Entity
         mixin self, Input
         mixin self, PhysicsRectangle, world, @pos.x, @pos.y, 32, 32
 
-        @\bind("left", @\moveLeft)
+        @\bind("left", @\moveTowards, "left", -32)
         @\bind("right", @\moveRight)
         @\bind("up", @\moveUp)
         @\bind("down", @\moveDown)
@@ -20,7 +20,8 @@ class Player extends Entity
         @sprite = love.graphics.newImage("assets/ninja.png")
         @anim = newAnimation(@sprite, 32, 32, 0.05, 0)
 
-    moveLeft: =>
+    moveTowards: (...) =>
+        print(unpack(...))
         @pos.x -= 32
         @physicsBody\move(-32, 0)
     moveRight: =>
