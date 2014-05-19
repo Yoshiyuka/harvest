@@ -10,6 +10,7 @@ do
   setmetatable(_base_0, _parent_0.__base)
   local _class_0 = setmetatable({
     __init = function(self, world, x, y, width, height)
+      _parent_0.__init(self, world)
       self.physicsBody = world:addRectangle(x, y, width, height)
     end,
     __base = _base_0,

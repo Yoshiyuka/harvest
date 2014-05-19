@@ -16,21 +16,18 @@ do
         self.facing.x = self.DIRECTIONS.neither
         self.facing.y = self.DIRECTIONS[direction]
       end
-      return print("facing: " .. self.facing.x .. " " .. self.facing.y)
+      self.moving = true
     end,
-    moveRight = function(self)
-      self.pos.x = self.pos.x + 32
-      return self.physicsBody:move(32, 0)
-    end,
-    moveUp = function(self)
-      self.pos.y = self.pos.y - 32
-      return self.physicsBody:move(0, -32)
-    end,
-    moveDown = function(self)
-      self.pos.y = self.pos.y + 32
-      return self.physicsBody:move(0, 32)
+    preUpdate = function(self, dt)
+      if self.moving then
+        self.physicsBody:move(self.facing.x * 32, self.facing.y * 32)
+        self.moving = false
+      end
     end,
     update = function(self, dt)
+      self.pos.x, self.pos.y = self.physicsBody:center()
+      self.pos.x = self.pos.x - 16
+      self.pos.y = self.pos.y - 16
       return self.anim:update(dt)
     end,
     draw = function(self)

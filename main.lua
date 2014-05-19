@@ -10,16 +10,21 @@ love.load = function()
   map = sti.new("maps/test")
   world = World()
   player = Player(world:getPhysics())
+  player_two = Player(world:getPhysics())
 end
 love.update = function(dt)
+  player:preUpdate(dt)
+  player_two:preUpdate(dt)
   map:update(dt)
+  world:update(dt)
   player:update(dt)
-  return world:update(dt)
+  return player_two:update(dt)
 end
 love.draw = function()
   map:setDrawRange(0, 0, windowWidth, windowHeight)
   map:draw()
-  return player:draw()
+  player:draw()
+  return player_two:draw()
 end
 love.keyreleased = function(key)
   if (key == "right") or (key == "left") then

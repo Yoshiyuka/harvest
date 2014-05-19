@@ -34,21 +34,20 @@ class Player extends Entity
             when "up", "down"
                 @facing.x = @DIRECTIONS.neither
                 @facing.y = @DIRECTIONS[direction]
-       
-        print "facing: " .. @facing.x .. " " .. @facing.y
-        --@physicsBody\move(@facing * 32)
- 
-    moveRight: =>
-        @pos.x += 32
-        @physicsBody\move(32, 0)
-    moveUp: =>
-        @pos.y -= 32
-        @physicsBody\move(0, -32)
-    moveDown: =>
-        @pos.y += 32
-        @physicsBody\move(0, 32)
+        
+        @moving = true
+
+    preUpdate: (dt) =>
+        if @moving
+            --move physics body first to check for collisions
+            @physicsBody\move(@facing.x * 32, @facing.y * 32)
+            @moving = false
 
     update: (dt) =>
+        @pos.x, @pos.y = @physicsBody\center()
+        @pos.x -= 16
+        @pos.y -=16
+
         @anim\update(dt)
     draw: =>
         @anim\draw(@pos.x, @pos.y)

@@ -3,10 +3,11 @@ HC = require "hardon"
 export Physics
 
 class Physics
-    new: =>
-
+    new:(world) =>
+        world\setCallbacks(Physics.__base.onCollision)
     update: (dt) =>
 
-    on_collide: (dt, shape_a, shape_b) =>
+    onCollision: (dt, shape_a, shape_b, dx, dy) =>
+        print "We've got a collision, captain."
 
 
