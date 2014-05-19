@@ -12,12 +12,15 @@ do
     inputKeypressed = function(self, key)
       local func
       local args
+      if self.action[key] == nil then
+        return 
+      end
       local _list_0 = self.action[key]
       for _index_0 = 1, #_list_0 do
         local tuple = _list_0[_index_0]
         if type(tuple) == "function" then
           func = tuple
-        else
+        elseif tuple ~= nil then
           args = tuple
         end
       end

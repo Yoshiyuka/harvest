@@ -12,18 +12,32 @@ class Player extends Entity
         mixin self, Input
         mixin self, PhysicsRectangle, world, @pos.x, @pos.y, 32, 32
 
-        @\bind("left", @\moveTowards, "left", -32)
-        @\bind("right", @\moveRight)
-        @\bind("up", @\moveUp)
-        @\bind("down", @\moveDown)
+        -- x: [left: -1, neither: 0, right: 1], y: [up: -1, neither: 0, down: 1]
+        @facing = {x: 0, y: 1} 
+        @DIRECTIONS = {left: -1, right: 1, up: -1, down: 1, neither: 0}
+
+        --bind key, method, direction
+        @\bind("left", @\moveTowards, "left")
+        @\bind("right", @\moveTowards, "right")
+        @\bind("up", @\moveTowards, "up")
+        @\bind("down", @\moveTowards, "down")
 
         @sprite = love.graphics.newImage("assets/ninja.png")
         @anim = newAnimation(@sprite, 32, 32, 0.05, 0)
 
-    moveTowards: (...) =>
-        print(unpack(...))
-        @pos.x -= 32
-        @physicsBody\move(-32, 0)
+    moveTowards: (dir) =>
+        direction = unpack(dir)
+        switch direction
+            when "left", "right"
+                @facing.x = @DIRECTIONS[direction]
+                @facing.y = @DIRECTIONS.neither
+            when "up", "down"
+                @facing.x = @DIRECTIONS.neither
+                @facing.y = @DIRECTIONS[direction]
+       
+        print "facing: " .. @facing.x .. " " .. @facing.y
+        --@physicsBody\move(@facing * 32)
+ 
     moveRight: =>
         @pos.x += 32
         @physicsBody\move(32, 0)

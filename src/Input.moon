@@ -14,10 +14,14 @@ class Input
     inputKeypressed: (key) =>
         local func
         local args
+
+        if @action[key] == nil
+            return
+
         for tuple in *@action[key]
             if type(tuple) == "function"
                 func = tuple
-            else
+            elseif tuple ~= nil
                 args = tuple
 
         if type(func) == "function"

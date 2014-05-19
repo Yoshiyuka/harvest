@@ -6,10 +6,17 @@ require("PhysicsRectangle")
 do
   local _parent_0 = Entity
   local _base_0 = {
-    moveTowards = function(self, ...)
-      print(unpack(...))
-      self.pos.x = self.pos.x - 32
-      return self.physicsBody:move(-32, 0)
+    moveTowards = function(self, dir)
+      local direction = unpack(dir)
+      local _exp_0 = direction
+      if "left" == _exp_0 or "right" == _exp_0 then
+        self.facing.x = self.DIRECTIONS[direction]
+        self.facing.y = self.DIRECTIONS.neither
+      elseif "up" == _exp_0 or "down" == _exp_0 then
+        self.facing.x = self.DIRECTIONS.neither
+        self.facing.y = self.DIRECTIONS[direction]
+      end
+      return print("facing: " .. self.facing.x .. " " .. self.facing.y)
     end,
     moveRight = function(self)
       self.pos.x = self.pos.x + 32
@@ -38,34 +45,45 @@ do
       _parent_0.__init(self)
       mixin(self, Input)
       mixin(self, PhysicsRectangle, world, self.pos.x, self.pos.y, 32, 32)
+      self.facing = {
+        x = 0,
+        y = 1
+      }
+      self.DIRECTIONS = {
+        left = -1,
+        right = 1,
+        up = -1,
+        down = 1,
+        neither = 0
+      }
       self:bind("left", (function()
         local _base_1 = self
         local _fn_0 = _base_1.moveTowards
         return function(...)
           return _fn_0(_base_1, ...)
         end
-      end)(), "left", -32)
+      end)(), "left")
       self:bind("right", (function()
         local _base_1 = self
-        local _fn_0 = _base_1.moveRight
+        local _fn_0 = _base_1.moveTowards
         return function(...)
           return _fn_0(_base_1, ...)
         end
-      end)())
+      end)(), "right")
       self:bind("up", (function()
         local _base_1 = self
-        local _fn_0 = _base_1.moveUp
+        local _fn_0 = _base_1.moveTowards
         return function(...)
           return _fn_0(_base_1, ...)
         end
-      end)())
+      end)(), "up")
       self:bind("down", (function()
         local _base_1 = self
-        local _fn_0 = _base_1.moveDown
+        local _fn_0 = _base_1.moveTowards
         return function(...)
           return _fn_0(_base_1, ...)
         end
-      end)())
+      end)(), "down")
       self.sprite = love.graphics.newImage("assets/ninja.png")
       self.anim = newAnimation(self.sprite, 32, 32, 0.05, 0)
     end,
