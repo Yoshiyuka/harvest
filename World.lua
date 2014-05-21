@@ -5,7 +5,7 @@ do
       return World.__base.physics:update(dt)
     end,
     on_collide = function(self, dt, shape_a, shape_b)
-      return print("collision!")
+      return print("on collision callback: calling shape_a and shape_b callbacks.")
     end,
     getPhysics = function(self)
       return World.__base.physics
@@ -16,6 +16,7 @@ do
     __init = function(self)
       if not (World.__base.physics) then
         World.__base.physics = HC(100, self.on_collide)
+        return World.__base.physics:setCallbacks(self.on_collide)
       end
     end,
     __base = _base_0,

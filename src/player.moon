@@ -40,7 +40,9 @@ class Player extends Entity
     preUpdate: (dt) =>
         if @moving
             --move physics body first to check for collisions
+            p(@physicsBody\center())
             @physicsBody\move(@facing.x * 32, @facing.y * 32)
+            p(@physicsBody\center())
             @moving = false
 
     update: (dt) =>

@@ -20,7 +20,9 @@ do
     end,
     preUpdate = function(self, dt)
       if self.moving then
+        p(self.physicsBody:center())
         self.physicsBody:move(self.facing.x * 32, self.facing.y * 32)
+        p(self.physicsBody:center())
         self.moving = false
       end
     end,
