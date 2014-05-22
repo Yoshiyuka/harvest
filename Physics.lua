@@ -2,13 +2,15 @@ local HC = require("hardon")
 do
   local _base_0 = {
     update = function(self, dt) end,
-    onCollision = function(self, shape)
-      return "Triggered onCollision callback!"
+    onCollision = function(self, dt, shape_a, shape_b, dx, dy)
+      return print(dx, dy)
     end
   }
   _base_0.__index = _base_0
   local _class_0 = setmetatable({
-    __init = function(self, world) end,
+    __init = function(self, world)
+      return world:setCallbacks(Physics.__base.onCollision)
+    end,
     __base = _base_0,
     __name = "Physics"
   }, {

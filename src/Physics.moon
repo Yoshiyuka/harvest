@@ -4,11 +4,11 @@ export Physics
 
 class Physics
     new:(world) =>
-        --world\setCallbacks(@onCollision)
+        world\setCallbacks(Physics.__base.onCollision)
     update: (dt) =>
 
-    onCollision: (shape) =>
-        "Triggered onCollision callback!"
+    onCollision: (dt, shape_a, shape_b, dx, dy) =>
+            print dx, dy
 
 
 

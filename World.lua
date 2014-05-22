@@ -4,9 +4,7 @@ do
     update = function(self, dt)
       return World.__base.physics:update(dt)
     end,
-    on_collide = function(self, dt, shape_a, shape_b)
-      return print("on collision callback: calling shape_a and shape_b callbacks.")
-    end,
+    on_collide = function(self, dt, shape_a, shape_b, dx, dy) end,
     getPhysics = function(self)
       return World.__base.physics
     end
@@ -15,8 +13,7 @@ do
   local _class_0 = setmetatable({
     __init = function(self)
       if not (World.__base.physics) then
-        World.__base.physics = HC(100, self.on_collide)
-        return World.__base.physics:setCallbacks(self.on_collide)
+        World.__base.physics = HC(100, World.__base.on_collide)
       end
     end,
     __base = _base_0,
