@@ -41,7 +41,7 @@ class Player extends Entity
         if @moving
             --move physics body first to check for collisions
             p(@physicsBody\center())
-            @physicsBody\move(@facing.x * 32, @facing.y * 32)
+            @physicsBody\move(@facing.x * 16, @facing.y * 16)
             p(@physicsBody\center())
             @moving = false
 
