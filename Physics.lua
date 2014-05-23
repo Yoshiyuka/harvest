@@ -2,8 +2,8 @@ local HC = require("hardon")
 do
   local _base_0 = {
     update = function(self, dt) end,
-    onCollision = function(self, dt, shape_a, shape_b, dx, dy)
-      return print(dx, dy)
+    onCollision = function(dt, shape_a, shape_b, dx, dy)
+      return print(shape_a, " is colliding with ", shape_b)
     end
   }
   _base_0.__index = _base_0

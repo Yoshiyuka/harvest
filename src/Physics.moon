@@ -7,8 +7,8 @@ class Physics
         world\setCallbacks(Physics.__base.onCollision)
     update: (dt) =>
 
-    onCollision: (dt, shape_a, shape_b, dx, dy) =>
-            print dx, dy
+    onCollision: (dt, shape_a, shape_b, dx, dy) ->
+            print shape_a, " is colliding with ", shape_b
 
 
 
