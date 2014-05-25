@@ -12,6 +12,7 @@ do
     __init = function(self, world, x, y, width, height)
       _parent_0.__init(self, world)
       self.physicsBody = world:addRectangle(x, y, width, height)
+      self.physicsBody.object = self
     end,
     __base = _base_0,
     __name = "PhysicsRectangle",

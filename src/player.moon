@@ -7,8 +7,9 @@ require "PhysicsRectangle"
 export Player
 
 class Player extends Entity
-    new: (world) =>
+    new: (world, name) =>
         super!
+        @name = name
         mixin self, Input
         mixin self, PhysicsRectangle, world, @pos.x, @pos.y, 32, 32
 
@@ -40,9 +41,8 @@ class Player extends Entity
     preUpdate: (dt) =>
         if @moving
             --move physics body first to check for collisions
-            p(@physicsBody\center())
+            print @name .. " is moving."
             @physicsBody\move(@facing.x * 16, @facing.y * 16)
-            p(@physicsBody\center())
             @moving = false
 
     update: (dt) =>

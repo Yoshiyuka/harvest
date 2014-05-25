@@ -3,7 +3,7 @@ do
   local _base_0 = {
     update = function(self, dt) end,
     onCollision = function(dt, shape_a, shape_b, dx, dy)
-      return print(shape_a, " is colliding with ", shape_b)
+      return print(shape_a.object.name, " is colliding with ", shape_b.object.name)
     end
   }
   _base_0.__index = _base_0

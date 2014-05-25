@@ -20,9 +20,8 @@ do
     end,
     preUpdate = function(self, dt)
       if self.moving then
-        p(self.physicsBody:center())
+        print(self.name .. " is moving.")
         self.physicsBody:move(self.facing.x * 16, self.facing.y * 16)
-        p(self.physicsBody:center())
         self.moving = false
       end
     end,
@@ -40,8 +39,9 @@ do
   _base_0.__index = _base_0
   setmetatable(_base_0, _parent_0.__base)
   local _class_0 = setmetatable({
-    __init = function(self, world)
+    __init = function(self, world, name)
       _parent_0.__init(self)
+      self.name = name
       mixin(self, Input)
       mixin(self, PhysicsRectangle, world, self.pos.x, self.pos.y, 32, 32)
       self.facing = {

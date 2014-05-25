@@ -25,8 +25,16 @@ love.load = () ->
 
     world = World!
 
-    player = Player(world\getPhysics!)
-    player_two = Player(world\getPhysics!)
+    player = Player(world\getPhysics!, "one")
+    player_two = Player(world\getPhysics!, "two")
+    player_two\bind("w", player_two\moveTowards, "up")
+    player_two\bind("a", player_two\moveTowards, "left")
+    player_two\bind("s", player_two\moveTowards, "down")
+    player_two\bind("d", player_two\moveTowards, "right")
+    player_two\bind("left", nil)
+    player_two\bind("right", nil)
+    player_two\bind("up", nil)
+    player_two\bind("down", nil)
     
 
 love.update = (dt) ->
@@ -55,6 +63,7 @@ love.keyreleased = (key) ->
 
 love.keypressed = (key) ->
     player\inputKeypressed(key)
+    player_two\inputKeypressed(key)
 math.clamp = (x, min, max) ->
     return x < min and min or (x > max and max or x)
         

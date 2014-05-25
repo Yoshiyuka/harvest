@@ -8,7 +8,7 @@ class Physics
     update: (dt) =>
 
     onCollision: (dt, shape_a, shape_b, dx, dy) ->
-            print shape_a, " is colliding with ", shape_b
+            print shape_a.object.name, " is colliding with ", shape_b.object.name
 
 
 
