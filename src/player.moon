@@ -13,6 +13,8 @@ class Player extends Entity
         mixin self, Input
         mixin self, PhysicsRectangle, world, @pos.x, @pos.y, 32, 32
 
+        @onCollide("test", (self) -> print self.name)
+
         -- x: [left: -1, neither: 0, right: 1], y: [up: -1, neither: 0, down: 1]
         @facing = {x: 0, y: 1} 
         @DIRECTIONS = {left: -1, right: 1, up: -1, down: 1, neither: 0}

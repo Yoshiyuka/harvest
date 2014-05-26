@@ -44,6 +44,9 @@ do
       self.name = name
       mixin(self, Input)
       mixin(self, PhysicsRectangle, world, self.pos.x, self.pos.y, 32, 32)
+      self:onCollide("test", function(self)
+        return print(self.name)
+      end)
       self.facing = {
         x = 0,
         y = 1

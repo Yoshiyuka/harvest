@@ -11,6 +11,7 @@ class World
         World.__base.physics\update(dt)
 
     on_collide: (dt, shape_a, shape_b, dx, dy) =>
+        print "this should not be called...."
 
     getPhysics: () =>
         return World.__base.physics

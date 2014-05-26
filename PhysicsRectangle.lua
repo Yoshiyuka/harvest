@@ -1,9 +1,16 @@
 require("Physics")
+require("moon.all")
 do
   local _parent_0 = Physics
   local _base_0 = {
     physicsRectangleDraw = function(self)
       return self.physicsBody:draw("line")
+    end,
+    onCollide = function(self, group, reaction)
+      return _parent_0.onCollide(self, group, reaction)
+    end,
+    collideWith = function(self, other, dx, dy)
+      return _parent_0.collideWith(self, other, dx, dy)
     end
   }
   _base_0.__index = _base_0

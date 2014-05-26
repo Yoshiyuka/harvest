@@ -4,7 +4,9 @@ do
     update = function(self, dt)
       return World.__base.physics:update(dt)
     end,
-    on_collide = function(self, dt, shape_a, shape_b, dx, dy) end,
+    on_collide = function(self, dt, shape_a, shape_b, dx, dy)
+      return print("this should not be called....")
+    end,
     getPhysics = function(self)
       return World.__base.physics
     end
