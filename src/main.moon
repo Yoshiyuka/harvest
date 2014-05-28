@@ -12,6 +12,8 @@ export ball
 export world
 
 love.load = () ->
+    require "loveframes"
+
     windowWidth = love.graphics.getWidth!
     windowHeight = love.graphics.getHeight!
 
@@ -35,6 +37,9 @@ love.load = () ->
     player_two\bind("right", nil)
     player_two\bind("up", nil)
     player_two\bind("down", nil)
+
+    button = loveframes.Create("button")
+    button\SetPos(10, 10)
     
 
 love.update = (dt) ->
@@ -48,6 +53,7 @@ love.update = (dt) ->
     player\update(dt)
     player_two\update(dt)
 
+    loveframes.update(dt)
 
 love.draw = () ->
     map\setDrawRange(0, 0, windowWidth, windowHeight)
@@ -57,13 +63,25 @@ love.draw = () ->
     player\draw!
     player_two\draw!
 
-love.keyreleased = (key) ->
-    if(key == "right") or (key == "left")
-        return true
+    loveframes.draw()
 
-love.keypressed = (key) ->
+love.mousepressed = (x, y, button) ->
+    loveframes.mousepressed(x, y, button)
+
+love.mousereleased = (x, y, button) ->
+    loveframes.mousereleased(x, y, button)
+
+love.keyreleased = (key) ->
+    loveframes.keyreleased(key)
+
+love.keypressed = (key, unicode) ->
     player\inputKeypressed(key)
     player_two\inputKeypressed(key)
+    loveframes.keypressed(key, unicode)
+
+love.textinput = (text) ->
+    loveframes.textinput(text)
+
 math.clamp = (x, min, max) ->
     return x < min and min or (x > max and max or x)
         

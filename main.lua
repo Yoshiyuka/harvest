@@ -3,6 +3,7 @@ require("anal")
 require("World")
 require("player")
 love.load = function()
+  require("loveframes")
   windowWidth = love.graphics.getWidth()
   windowHeight = love.graphics.getHeight()
   love.graphics.setBackgroundColor(128, 128, 128)
@@ -42,7 +43,9 @@ love.load = function()
   player_two:bind("left", nil)
   player_two:bind("right", nil)
   player_two:bind("up", nil)
-  return player_two:bind("down", nil)
+  player_two:bind("down", nil)
+  local button = loveframes.Create("button")
+  return button:SetPos(10, 10)
 end
 love.update = function(dt)
   player:preUpdate(dt)
@@ -50,22 +53,32 @@ love.update = function(dt)
   map:update(dt)
   world:update(dt)
   player:update(dt)
-  return player_two:update(dt)
+  player_two:update(dt)
+  return loveframes.update(dt)
 end
 love.draw = function()
   map:setDrawRange(0, 0, windowWidth, windowHeight)
   map:draw()
   player:draw()
-  return player_two:draw()
+  player_two:draw()
+  return loveframes.draw()
+end
+love.mousepressed = function(x, y, button)
+  return loveframes.mousepressed(x, y, button)
+end
+love.mousereleased = function(x, y, button)
+  return loveframes.mousereleased(x, y, button)
 end
 love.keyreleased = function(key)
-  if (key == "right") or (key == "left") then
-    return true
-  end
+  return loveframes.keyreleased(key)
 end
-love.keypressed = function(key)
+love.keypressed = function(key, unicode)
   player:inputKeypressed(key)
-  return player_two:inputKeypressed(key)
+  player_two:inputKeypressed(key)
+  return loveframes.keypressed(key, unicode)
+end
+love.textinput = function(text)
+  return loveframes.textinput(text)
 end
 math.clamp = function(x, min, max)
   return x < min and min or (x > max and max or x)
